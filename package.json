@@ -1,0 +1,15 @@
+{
+  "name": "w-log-api",
+  "version": "1.0.0",
+  "description": "Personal workout app",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^13.11.0",
+    "typescript": "^3.8.3"
+  }
+}

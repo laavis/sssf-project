@@ -1,6 +1,0 @@
-{
-  "mongoURI": "mongodb://laavis:laavis123@ds361968.mlab.com:61968/w-log",
-  "jwtSecret": "rappiolla",
-  "nodeEnv": "dev",
-  "port": 8000
-}

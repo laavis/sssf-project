@@ -1,5 +1,6 @@
 import { User } from '../models/User';
 import { validator, formatYupError } from '../helpers/validation';
+import { register } from '../controllers/user';
 
 export const resolvers = {
   Query: {
@@ -7,17 +8,16 @@ export const resolvers = {
   },
   Mutation: {
     registerUser: async (_, { email, username, password, rePassword }) => {
-      try {
+      /*try {
         const args = { email, username, password, rePassword };
         await validator.validate(args, { abortEarly: false });
       } catch (err) {
-        console.log(formatYupError(err));
         return formatYupError(err);
-      }
+      }*/
+      const response = await register(email, username, password, rePassword);
+      console.log(response);
 
-      const user = new User({ email, username, password });
-
-      return user;
+      return response;
     },
   },
 };

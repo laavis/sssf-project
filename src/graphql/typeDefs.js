@@ -5,14 +5,11 @@ export const typeDefs = gql`
     hello: String!
   }
   type UserRegister {
-    email: String!
-    username: String!
-    password: String!
-    rePassword: String!
+    token: String
+    errors: [Error]
   }
   type Error {
-    path: String!
-    message: String!
+    message: String
   }
   type Mutation {
     registerUser(
@@ -20,6 +17,6 @@ export const typeDefs = gql`
       username: String!
       password: String!
       rePassword: String!
-    ): [Error!]
+    ): UserRegister
   }
 `;

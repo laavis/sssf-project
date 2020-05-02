@@ -9,6 +9,7 @@ export const typeDefs = gql`
     errors: [Error]
   }
   type Error {
+    type: String
     message: String
   }
   type Mutation {

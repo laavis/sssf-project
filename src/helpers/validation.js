@@ -1,4 +1,84 @@
-const yup = require('yup');
+import Validator from 'validator';
+
+const isEmpty = (value) => {
+  value === undefined ||
+    value === null ||
+    (typeof value === 'object' && Object.keys(value).length === 0) ||
+    (typeof value === 'string' && value.trim().length === 0);
+};
+
+const validateRegister = (data) => {
+  let errors = [];
+  // Data to string
+  data.username = !isEmpty(data.username) ? data.username : '';
+  data.email = !isEmpty(data.email) ? data.email : '';
+  data.password = !isEmpty(data.password) ? data.password : '';
+  data.rePassword = !isEmpty(data.rePassword) ? data.rePassword : '';
+
+  if (!Validator.isLength(data.username, { min: 2, max: 64 })) {
+    errors.push({
+      type: 'username',
+      message: 'Name must be between 2 and 64 characters',
+    });
+  }
+
+  if (Validator.isEmpty(data.username)) {
+    errors.push({
+      type: 'username',
+      message: 'Username is required',
+    });
+  }
+
+  if (Validator.isEmpty(data.email)) {
+    errors.push({
+      type: 'email',
+      message: 'Email is required',
+    });
+  }
+
+  if (!Validator.isEmail(data.email)) {
+    errors.push({
+      type: 'email',
+      message: 'Invalid email',
+    });
+  }
+
+  if (Validator.isEmpty(data.password)) {
+    errors.push({
+      type: 'password',
+      message: 'Password is required',
+    });
+  }
+
+  if (!Validator.isLength(data.password, { min: 6, max: 64 })) {
+    errors.push({
+      type: 'password',
+      message: 'Password must be at least 6 characters',
+    });
+  }
+
+  if (Validator.isEmpty(data.rePassword)) {
+    errors.push({
+      type: 'password',
+      message: 'Confirm password is required',
+    });
+  }
+
+  if (!Validator.equals(data.password, data.rePassword)) {
+    errors.push({
+      type: 'password',
+      message: 'Passwords must match',
+    });
+  }
+
+  return errors;
+};
+
+module.exports = {
+  validateRegister,
+};
+
+/*const yup = require('yup');
 
 const emailNotLongEnough = 'email must be at least 3 characters';
 const nameNotLongEnough = 'name must be at least 3 characters';
@@ -22,4 +102,4 @@ const formatYupError = (err) => {
   return errors;
 };
 
-module.exports = { validator, formatYupError };
+module.exports = { validator, formatYupError };*/

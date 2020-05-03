@@ -15,7 +15,6 @@ const register = async (email, username, password, rePassword) => {
   if (validationErrors.length > 0) {
     validationErrors.map((err) => errors.push(err));
     return {
-      token: null,
       errors,
     };
   }
@@ -27,6 +26,7 @@ const register = async (email, username, password, rePassword) => {
         type: 'email',
         message: 'Email already exists',
       });
+      return errors;
     }
 
     user = new User({
@@ -48,15 +48,13 @@ const register = async (email, username, password, rePassword) => {
 
     const token = await signToken(payload);
 
-    return { token, errors };
+    return { token };
   } catch (err) {
     console.error(err);
   }
 };
 
 const login = async (email, password) => {
-  console.log(email, password);
-
   const errors = [];
   const userInput = { email, password };
 
@@ -65,7 +63,6 @@ const login = async (email, password) => {
   if (validationErrors.length > 0) {
     validationErrors.map((err) => errors.push(err));
     return {
-      token: null,
       errors,
     };
   }
@@ -73,12 +70,8 @@ const login = async (email, password) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      errors.push({
-        type: 'login',
-        message: 'Invalid credentials',
-      });
+      errors.push({ message: 'Invalid credentials' });
       return {
-        token: null,
         errors,
       };
     }
@@ -86,12 +79,8 @@ const login = async (email, password) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      errors.push({
-        type: 'login',
-        message: 'Invalid credentials',
-      });
+      errors.push({ message: 'Invalid credentials' });
       return {
-        token: null,
         errors,
       };
     }
@@ -101,17 +90,27 @@ const login = async (email, password) => {
       },
     };
 
-    const token = await signToken(payload);
+    const accessToken = await signAccessToken(payload);
+    const refreshToken = await signRefreshToken(payload);
 
-    return { token, errors };
+    return { accessToken, refreshToken };
   } catch (err) {
     console.error(err);
   }
 };
 
-const signToken = (payload) => {
+const signAccessToken = (payload) => {
   return new Promise((res, rej) => {
-    jwt.sign(payload, jwtSecret, { expiresIn: '3 days' }, (err, tok) => {
+    jwt.sign(payload, jwtSecret, { expiresIn: '15min' }, (err, tok) => {
+      if (err) rej(err);
+      res(tok);
+    });
+  });
+};
+
+const signRefreshToken = (payload) => {
+  return new Promise((res, rej) => {
+    jwt.sign(payload, jwtSecret, { expiresIn: '7d' }, (err, tok) => {
       if (err) rej(err);
       res(tok);
     });

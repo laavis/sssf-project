@@ -106,9 +106,31 @@ const validateLogin = (data) => {
   };
 };
 
+const validateCreateExercise = (data) => {
+  const errors = [];
+
+  data.name = !isEmpty(data.name) ? data.name : '';
+  data.target = !isEmpty(data.target) ? data.target : '';
+
+  if (Validator.isEmpty(data.name)) {
+    errors.push({
+      type: 'excercise',
+      message: 'Name is required',
+    });
+  }
+
+  if (Validator.isEmpty(data.target)) {
+    errors.push({
+      type: 'excercise',
+      message: 'Please choose a target',
+    });
+  }
+};
+
 module.exports = {
   validateRegister,
   validateLogin,
+  validateCreateExercise,
 };
 
 /*const yup = require('yup');

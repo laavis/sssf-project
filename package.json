@@ -23,6 +23,7 @@
     "graphql": "^15.0.0",
     "graphql-middleware": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "mongoose": "^5.9.10",
     "validator": "^13.0.0",
     "yup": "^0.28.4"

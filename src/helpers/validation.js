@@ -74,8 +74,41 @@ const validateRegister = (data) => {
   return errors;
 };
 
+const validateLogin = (data) => {
+  let errors = [];
+  // Data to string
+  data.email = !isEmpty(data.email) ? data.email : '';
+  data.password = !isEmpty(data.password) ? data.password : '';
+
+  if (!Validator.isEmail(data.email)) {
+    errors.push({
+      type: 'email',
+      message: 'Invalid email',
+    });
+  }
+
+  if (Validator.isEmpty(data.email)) {
+    errors.push({
+      type: 'email',
+      message: 'Email is required',
+    });
+  }
+
+  if (Validator.isEmpty(data.password)) {
+    errors.push({
+      type: 'password',
+      message: 'Password is required',
+    });
+  }
+
+  return {
+    errors,
+  };
+};
+
 module.exports = {
   validateRegister,
+  validateLogin,
 };
 
 /*const yup = require('yup');

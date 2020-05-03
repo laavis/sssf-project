@@ -19,5 +19,10 @@ export const typeDefs = gql`
       password: String!
       rePassword: String!
     ): UserRegister
+    loginUser(email: String!, password: String!): UserLogin
+  }
+  type UserLogin {
+    token: String
+    errors: [Error]
   }
 `;

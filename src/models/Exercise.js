@@ -8,7 +8,7 @@ export const Exercise = mongoose.model('exercise', {
   },
   difficulty: {
     type: String,
-    enum: ['beginner, intermediate, advanced'],
+    enum: ['beginner', 'intermediate', 'advanced'],
   },
   target: {
     type: String,

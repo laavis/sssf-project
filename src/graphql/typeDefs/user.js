@@ -5,8 +5,8 @@ export const typeDefs = gql`
     id: ID!
     email: String!
   }
-  type Mutation {
-    register(email: String!, username: String!, password: String!, rePassword: String!): Boolean!
+  extend type Query {
+    register(email: String!, username: String!, password: String!, rePassword: String!): User
     login(email: String!, password: String!): User
   }
 `;

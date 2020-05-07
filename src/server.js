@@ -20,6 +20,7 @@ const startServer = async () => {
   });
 
   connectDB();
+
   const app = express();
   app.use(cookieParser());
 

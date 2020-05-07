@@ -29,7 +29,6 @@ export const resolvers = {
 
       if (!req.userId) {
         console.log(2);
-
         return new AuthenticationError('haista vittu');
       }
 
@@ -68,6 +67,22 @@ export const resolvers = {
 
         console.log(updatedExercise);
         return updatedExercise;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    delete: async (_, { id }, { req }) => {
+      if (!req.userId) {
+        console.log(2);
+        return new AuthenticationError('haista vittu');
+      }
+
+      try {
+        const exercise = await Exercise.findById(id);
+        if (!exercise) return 'Exercise not found';
+        await exercise.remove();
+
+        return 'Exercise deleted';
       } catch (err) {
         console.error(err);
       }

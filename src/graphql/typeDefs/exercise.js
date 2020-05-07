@@ -14,5 +14,6 @@ export const typeDefs = gql`
     testAuth(asd: String): String
     create(name: String!, type: String, difficulty: String, target: String!): Exercise
     update(id: ID!, name: String!, type: String, difficulty: String, target: String!): Exercise
+    delete(id: ID!): String
   }
 `;

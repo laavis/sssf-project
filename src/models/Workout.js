@@ -4,7 +4,10 @@ import { User } from './User';
 
 // hey maybe add user who created the workout? because y not?
 export const Workout = mongoose.model('workout', {
-  exercises: [Exercise],
+  exercises: {
+    type: [Exercise],
+    required: true,
+  },
   createdBy: mongoose.Types.ObjectId, // not required cuz anonymity n stuff
   name: {
     type: String,
@@ -20,6 +23,6 @@ export const Workout = mongoose.model('workout', {
   },
   target: {
     type: String,
-    enum: ['chest', 'back', 'shoulders', 'biceps', 'legs', 'glutes', 'back', 'triceps', 'abs'],
+    enum: ['back', 'upper body', 'lower body', 'legs', 'glutes', 'abs', 'arms'],
   },
 });

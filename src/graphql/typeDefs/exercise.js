@@ -9,11 +9,16 @@ export const typeDefs = gql`
     target: String!
   }
   extend type Query {
-    getAll: [Exercise]
-    getOne(id: ID!): Exercise
-    testAuth(asd: String): String
-    create(name: String!, type: String, difficulty: String, target: String!): Exercise
-    update(id: ID!, name: String!, type: String, difficulty: String, target: String!): Exercise
-    delete(id: ID!): String
+    getAllExercises: [Exercise]
+    getOneExercise(id: ID!): Exercise
+    createExercise(name: String!, type: String, difficulty: String, target: String!): Exercise
+    updateExercise(
+      id: ID!
+      name: String!
+      type: String
+      difficulty: String
+      target: String!
+    ): Exercise
+    deleteExercise(id: ID!): String
   }
 `;

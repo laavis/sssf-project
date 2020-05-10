@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export const Exercise = mongoose.model('exercise', {
+export const SExercise = new mongoose.Schema({
   name: String,
   type: {
     type: String,
@@ -15,3 +15,5 @@ export const Exercise = mongoose.model('exercise', {
     enum: ['chest', 'back', 'shoulders', 'biceps', 'legs', 'glutes', 'back', 'triceps', 'abs'],
   },
 });
+
+export const Exercise = mongoose.model('exercise', SExercise);

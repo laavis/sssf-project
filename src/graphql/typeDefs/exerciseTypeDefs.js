@@ -8,9 +8,14 @@ export const typeDefs = gql`
     difficulty: String
     target: String!
   }
+  input ExerciseInput {
+    id: ID!
+  }
   extend type Query {
-    getAllExercises: [Exercise]
-    getOneExercise(id: ID!): Exercise
+    getExercises: [Exercise]
+    getExercise(id: ID!): Exercise
+  }
+  extend type Mutation {
     createExercise(name: String!, type: String, difficulty: String, target: String!): Exercise
     updateExercise(
       id: ID!

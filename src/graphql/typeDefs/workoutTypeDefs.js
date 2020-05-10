@@ -1,8 +1,8 @@
 import { gql } from 'apollo-server-express';
-import { Exercise } from './exerciseTypeDefs';
 
 export const typeDefs = gql`
   type Workout {
+    id: ID
     name: String!
     difficulty: String
     category: String
@@ -11,15 +11,17 @@ export const typeDefs = gql`
     exercises: [Exercise]!
   }
   extend type Query {
-    getAllWorkouts: [Workout]
-    getOneWorkout(id: ID): Workout
+    getWorkouts: [Workout]
+    getWorkout(id: ID): Workout
+  }
+  extend type Mutation {
     createWorkout(
       name: String!
       difficulty: String
       category: String
       target: String!
       createdBy: ID
-      exercises: [Exercise]!
+      exercises: [ExerciseInput]
     ): Workout
   }
 `;

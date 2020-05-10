@@ -3,10 +3,10 @@ import { AuthenticationError } from 'apollo-server-express';
 
 export const resolvers = {
   Query: {
-    getAllExercises: async (_) => {
+    getExercises: async (_) => {
       return await Exercise.find();
     },
-    getOneExercise: async (_, { id }) => {
+    getExercise: async (_, { id }) => {
       try {
         // add some check if exercise id is not correct?
         // cuz if it happens the app will crash :D
@@ -23,12 +23,12 @@ export const resolvers = {
         console.error(err);
       }
     },
+  },
+  Mutation: {
     createExercise: async (_, { name, type, difficulty, target }, { req }) => {
       // @TODO: add validation
-      console.log('1');
 
       if (!req.userId) {
-        console.log(2);
         return new AuthenticationError('haista vittu');
       }
 

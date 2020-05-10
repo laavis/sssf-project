@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import { Exercise } from './Exercise';
+import { SExercise } from './Exercise';
 import { User } from './User';
 
 // hey maybe add user who created the workout? because y not?
 export const Workout = mongoose.model('workout', {
   exercises: {
-    type: [Exercise],
+    type: [SExercise],
     required: true,
   },
   createdBy: mongoose.Types.ObjectId, // not required cuz anonymity n stuff

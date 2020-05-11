@@ -24,6 +24,7 @@ export const typeDefs = gql`
       exercises: [WorkoutExerciseInput]
     ): Workout
     updateWorkout(
+      id: ID!
       name: String!
       difficulty: String
       category: String

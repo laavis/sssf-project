@@ -41,7 +41,33 @@ export const resolvers = {
         console.error(err);
       }
     },
-    updateWorkout: async (_, {}, { req }) => {},
+    updateWorkout: async (
+      _,
+      { id, name, difficulty, category, target, createdBy, exercises },
+      { req }
+    ) => {
+      if (!req.userId) return new AuthenticationError('Not authenticated');
+
+      try {
+        const workoutToUpdate = { _id: id };
+        const workout = {
+          name,
+          difficulty,
+          category,
+          target,
+          createdBy,
+          exercises,
+        };
+
+        const updatedWorkout = await Workout.findOneAndUpdate(workoutToUpdate, workout, {
+          returnOriginal: false,
+        });
+
+        return updatedWorkout;
+      } catch (err) {
+        console.error(err);
+      }
+    },
     deleteWorkout: async (_, { id }, { req }) => {
       if (!req.userId) {
         console.log(2);

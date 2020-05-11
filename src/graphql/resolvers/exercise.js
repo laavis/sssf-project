@@ -55,13 +55,12 @@ export const resolvers = {
     },
     updateExercise: async (_, { id, name, type, difficulty, target }, { req }) => {
       if (!req.userId) {
-        console.log(2);
         return new AuthenticationError('haista vittu');
       }
       try {
-        const asd = { _id: id };
-        const lol = { name, type, difficulty, target };
-        const updatedExercise = await Exercise.findOneAndUpdate(asd, lol, {
+        const exerciseToUpdate = { _id: id };
+        const exercise = { name, type, difficulty, target };
+        const updatedExercise = await Exercise.findOneAndUpdate(exerciseToUpdate, exercise, {
           returnOriginal: false,
         });
 

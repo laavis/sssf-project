@@ -4,6 +4,7 @@ import { Exercise } from '../../models/Exercise';
 
 export const resolvers = {
   Query: {
+    getWorkouts: async (_) => await Workout.find(),
     getWorkout: async (_, { id }) => {
       try {
         const workout = await Workout.findById(id);
@@ -24,25 +25,34 @@ export const resolvers = {
       if (!req.userId) return new AuthenticationError('Not authenticated');
 
       try {
-        const ids = [];
-        exercises.forEach((exercise) => {
-          ids.push(exercise.id);
-        });
-
-        const exercises2 = await Exercise.find().where('_id').in(ids);
-
         const newWorkout = new Workout({
           name,
           difficulty,
           category,
           target,
           createdBy,
-          exercises: exercises2,
+          exercises,
         });
 
         const workout = await newWorkout.save();
 
         return workout;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    updateWorkout: async (_, {}, { req }) => {},
+    deleteWorkout: async (_, { id }, { req }) => {
+      if (!req.userId) {
+        console.log(2);
+        return new AuthenticationError('Not authenticated.');
+      }
+      try {
+        const removable = await Workout.findByIdAndRemove(id);
+
+        if (removable) {
+          return `${removable.name} removed`;
+        } else return 'Not found :(';
       } catch (err) {
         console.error(err);
       }

@@ -8,7 +8,7 @@ export const typeDefs = gql`
     difficulty: String
     target: String!
   }
-  input ExerciseInput {
+input ExerciseInput {
     id: ID!
   }
   extend type Query {

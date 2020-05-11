@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export const SExercise = new mongoose.Schema({
+export const ExerciseSchema = new mongoose.Schema({
   name: String,
   type: {
     type: String,
@@ -16,4 +16,4 @@ export const SExercise = new mongoose.Schema({
   },
 });
 
-export const Exercise = mongoose.model('exercise', SExercise);
+export const Exercise = mongoose.model('exercise', ExerciseSchema);

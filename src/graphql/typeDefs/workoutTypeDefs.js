@@ -8,7 +8,7 @@ export const typeDefs = gql`
     category: String
     target: String!
     createdBy: ID
-    exercises: [Exercise]!
+    exercises: [WorkoutExercise]!
   }
   extend type Query {
     getWorkouts: [Workout]
@@ -21,7 +21,16 @@ export const typeDefs = gql`
       category: String
       target: String!
       createdBy: ID
-      exercises: [ExerciseInput]
+      exercises: [WorkoutExerciseInput]
     ): Workout
+    updateWorkout(
+      name: String!
+      difficulty: String
+      category: String
+      target: String!
+      createdBy: ID
+      exercises: [WorkoutExerciseInput]
+    ): Workout
+    deleteWorkout(id: ID!): String
   }
 `;

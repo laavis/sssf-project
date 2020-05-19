@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { ExerciseSchema } from './Exercise';
 
 export const WorkoutExerciseSchema = new mongoose.Schema({
   exercise: mongoose.Types.ObjectId,

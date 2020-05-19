@@ -1,4 +1,4 @@
-import { gql, makeExecutableSchema, AuthenticationError } from 'apollo-server-express';
+import { gql, makeExecutableSchema } from 'apollo-server-express';
 import { merge } from 'lodash';
 
 import { typeDefs as User } from './typeDefs/userTypeDefs';

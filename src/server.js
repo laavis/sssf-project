@@ -3,11 +3,11 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import config from 'config';
 import { verify } from 'jsonwebtoken';
-
 import { User } from './models/User';
 import { connectDB } from './utils/connectDB';
 import { schema } from './graphql/schema';
 import { createTokens } from './middleware/auth';
+import cors from 'cors';
 
 const port = config.get('port');
 const accessSecret = config.get('accessSecret');
@@ -15,6 +15,7 @@ const refreshSecret = config.get('refreshSecret');
 
 const startServer = async () => {
   const server = new ApolloServer({
+    cors: false,
     schema,
     context: ({ req, res, next }) => ({ req, res, next }),
   });
@@ -22,14 +23,23 @@ const startServer = async () => {
   connectDB();
 
   const app = express();
+
+  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+
   app.use(cookieParser());
 
   app.use(async (req, res, next) => {
     const refreshToken = req.cookies['refresh-token'];
     const accessToken = req.cookies['access-token'];
+    console.log(req.cookies);
+
     if (!refreshToken && !accessToken) {
+      console.log('no tokens');
+
       return next();
     }
+
+    console.log('yes tokens');
 
     try {
       const data = verify(accessToken, accessSecret);
@@ -63,7 +73,6 @@ const startServer = async () => {
     }
 
     console.log('USER: ');
-
     console.log(user);
 
     const tokens = createTokens(user);
@@ -75,7 +84,7 @@ const startServer = async () => {
     next();
   });
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: false });
   app.listen(port, () =>
     console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
   );

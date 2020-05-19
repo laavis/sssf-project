@@ -1,9 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
 import './App.css';
 
 import Input from './components/Input';
+
+import Login from './views/Login';
+import SignUp from './views/SignUp';
 
 const GlobalStyle = createGlobalStyle`
   body, h1, h2, h3, h4, p {
@@ -11,46 +15,32 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Source Sans Pro', monospace;
   }
-  p, span, input {
-    color: red;
-  }
 `;
 
-const NavBar = () => (
-  <div className="navbar">
-    <h3>Task Manager</h3>
-    <Link to="/">Current Tasks</Link>
-    <Link to="/completed">Completed Tasks</Link>
-  </div>
-);
+const Main = styled.main`
+  padding: 20vh 24px 24px 24px;
+`;
 
-const Template = (props) => (
-  <div>
-    <NavBar />
-    <p className="page-info">{props.title}:</p>
-    <Input />
-    <ul className={props.status}>
-      <li>Task 1</li>
-      <li>Task 2</li>
-      <li>Task 3</li>
-    </ul>
-  </div>
-);
+const Wrapper = styled.div`
+  max-width: 411px;
+  margin: 0 auto;
+`;
 
-const CurrentTasks = () => <Template title="Current Tasks" status="Current" />;
-
-const CompletedTasks = () => <Template title="Completed Tasks" status="Completed" />;
-
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <div>
-        <Route exact path="/" component={CurrentTasks} />
-        <Route path="/completed" component={CompletedTasks} />
-      </div>
+      <Main>
+        <Wrapper>
+          <Route path="/login" component={Login} />
+          <Route path="/sign-up" component={SignUp} />
+        </Wrapper>
+      </Main>
     </BrowserRouter>
   );
 };
+
+// <Route exact path="/" component={CurrentTasks} />
+// <Route path="/completed" component={CompletedTasks} />
 
 export default App;

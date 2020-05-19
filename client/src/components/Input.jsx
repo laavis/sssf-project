@@ -2,29 +2,39 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Field = styled.div`
-  background: palevioletred;
   padding: 16px 0;
   display: flex;
   flex-direction: column;
 `;
 
 const Label = styled.label`
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  margin-bottom: 6px;
+  color: #383838;
 `;
 
 const Input = styled.input`
   border: none;
-  border-radius: 4px;
-  min-height: 32px;
-  padding: 0 8px;
+  border-radius: 34px;
+  min-height: 42px;
+  padding: 0 14px;
   flex: 1;
+  background: #f3f3f5;
+  font-size: 14px;
+  transition: box-shadow 180ms ease-in-out;
+  &:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 1px #a6abf0;
+  }
 `;
 
-export default () => {
+export default (props) => {
   return (
     <Field>
-      <Label>Username</Label>
-      <Input type="text" placeholder="moromoro" />
+      <Label>{props.label}</Label>
+      <Input type={props.type} value={props.value} onChange={props.onChange} />
     </Field>
   );
 };

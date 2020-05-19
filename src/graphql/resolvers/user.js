@@ -4,7 +4,7 @@ import { User } from '../../models/User';
 import { createTokens } from '../../middleware/auth';
 
 export const resolvers = {
-  Query: {
+  Mutation: {
     register: async (_, { email, username, password, rePassword }, { res }) => {
       const errors = [];
 
@@ -55,6 +55,10 @@ export const resolvers = {
       }
     },
     login: async (_, { email, password }, { res }) => {
+      console.log('login');
+      console.log(email);
+      console.log(password);
+
       const errors = [];
       const userInput = { email, password };
       const validationErrors = validateLogin(userInput);
@@ -85,8 +89,15 @@ export const resolvers = {
 
         const { accessToken, refreshToken } = createTokens(user);
 
-        res.cookie('access-token', accessToken, { expiresIn: 60 * 15 });
-        res.cookie('refresh-token', refreshToken);
+        res.cookie('access-token', accessToken, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+        });
+        res.cookie('refresh-token', refreshToken, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        });
+
         console.log(user);
 
         return user;

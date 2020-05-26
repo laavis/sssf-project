@@ -8,7 +8,7 @@ export const resolvers = {
     register: async (_, { email, username, password, rePassword }, { res }) => {
       const errors = [];
 
-      const userInput = { email, username, password, rePassword };
+      /*const userInput = { email, username, password, rePassword };
       const validationErrors = validateRegister(userInput);
       console.log(1);
 
@@ -20,6 +20,7 @@ export const resolvers = {
           errors,
         };
       }
+      */
 
       try {
         let user = await User.findOne({ email });
@@ -58,6 +59,7 @@ export const resolvers = {
       console.log('login');
       console.log(email);
       console.log(password);
+      console.log('credentials');
 
       const errors = [];
       const userInput = { email, password };
@@ -100,7 +102,7 @@ export const resolvers = {
 
         console.log(user);
 
-        return user;
+        return { success: true };
       } catch (err) {
         console.error(err);
       }

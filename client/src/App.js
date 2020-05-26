@@ -1,13 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, useHistory } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import './App.css';
 
-import Input from './components/Input';
-
 import Login from './views/Login';
-import SignUp from './views/SignUp';
+import Dashboard from './views/Dashboard';
 
 const GlobalStyle = createGlobalStyle`
   body, h1, h2, h3, h4, p {
@@ -33,7 +31,8 @@ const App = (props) => {
       <Main>
         <Wrapper>
           <Route path="/login" component={Login} />
-          <Route path="/sign-up" component={SignUp} />
+          <Route path="/dashboard" component={Dashboard} />
+          {/* <Route path="/sign-up" component={SignUp} /> */}
         </Wrapper>
       </Main>
     </BrowserRouter>

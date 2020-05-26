@@ -5,7 +5,7 @@ import { PageTitle } from '../components/Typography';
 import Button from '../components/Button';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 export const FlexColumn = styled.div`
   display: flex;
@@ -15,29 +15,34 @@ export const FlexColumn = styled.div`
 const M_LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      email
+      success
     }
   }
 `;
 
 export default () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, result] = useMutation(M_LOGIN, {
     onError: (err) => console.log(err),
   });
 
+  let asd;
+
   useEffect(() => {
     if (result.data) {
-      console.log(result);
     }
   }, [result.data]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      console.log(login({ variables: { email, password } }));
-      login({ variables: { email, password } });
+      const loginResult = await login({ variables: { email, password } });
+      const success = loginResult.data.login.success;
+      if (success) {
+        history.push('/dashboard');
+      }
     } catch (err) {
       console.log(err);
     }

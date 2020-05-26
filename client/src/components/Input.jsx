@@ -8,7 +8,7 @@ const Field = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 11px;
+  font-size: 12px;
   font-weight: bold;
   letter-spacing: 0.2px;
   margin-bottom: 6px;
@@ -34,7 +34,12 @@ export default (props) => {
   return (
     <Field>
       <Label>{props.label}</Label>
-      <Input type={props.type} value={props.value} onChange={props.onChange} />
+      <Input
+        placeholder={props.placeholder}
+        type={props.type}
+        value={props.value}
+        onChange={props.onChange}
+      />
     </Field>
   );
 };

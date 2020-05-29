@@ -6,6 +6,7 @@ import './App.css';
 
 import Login from './views/Login';
 import Dashboard from './views/Dashboard';
+import CreateExercise from './views/CreateExercise';
 
 const GlobalStyle = createGlobalStyle`
   body, h1, h2, h3, h4, p {
@@ -24,7 +25,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-const App = (props) => {
+const App = props => {
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -32,6 +33,7 @@ const App = (props) => {
         <Wrapper>
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/create-exercise" component={CreateExercise} />
           {/* <Route path="/sign-up" component={SignUp} /> */}
         </Wrapper>
       </Main>

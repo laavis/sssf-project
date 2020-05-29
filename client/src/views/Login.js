@@ -25,17 +25,15 @@ export default () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, result] = useMutation(M_LOGIN, {
-    onError: (err) => console.log(err),
+    onError: err => console.log(err),
   });
-
-  let asd;
 
   useEffect(() => {
     if (result.data) {
     }
   }, [result.data]);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async e => {
     e.preventDefault();
     try {
       const loginResult = await login({ variables: { email, password } });
@@ -52,13 +50,13 @@ export default () => {
     <div>
       <PageTitle>Log In</PageTitle>
 
-      <Input type="text" label="Email" onChange={(e) => setEmail(e.target.value)} value={email} />
+      <Input type="text" label="Email" onChange={e => setEmail(e.target.value)} value={email} />
 
       <Input
         type="password"
         label="Password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
       />
 
       <FlexColumn>

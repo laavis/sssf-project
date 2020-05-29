@@ -5,15 +5,12 @@ import { PageTitle } from '../components/Typography';
 import Button from '../components/Button';
 import { FlexColumn } from './Login';
 
-export default ({ history }) => {
+export default () => {
+  const history = useHistory();
+
   return (
     <div>
-      <FlexColumn>
-        <PageTitle>Dashboard</PageTitle>
-        <Link to="/create-exercise">here</Link>
-        <Button onClick={() => history.push('/create-exercise')} text="Create Exercise" />
-        <Button text="Create Workout" />
-      </FlexColumn>
+      <h1>404! NOT FOUND :(</h1>
     </div>
   );
 };

@@ -112,12 +112,37 @@ const M_CREATE_EXERCISE = gql`
   }
 `;
 
+const ReviewCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  border-radius: 4px;
+  border: 2px solid #a6abf0;
+`;
+
+const ReviewCardItem = styled.div`
+  margin-bottom: 8px;
+
+  span {
+    padding: 2px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    background: #f3f3f5;
+  }
+
+  p {
+    margin-top: 6px;
+  }
+`;
+
 export default () => {
   const [name, setName] = useState('');
   const [description, setDesctiption] = useState('');
   const [difficulty, setDifficulty] = useState(null);
   const [target, setTarget] = useState(null);
   const [type, setType] = useState(null);
+  const [onSuccess, setOnSuccess] = useState(false);
 
   const [createExercise, result] = useMutation(M_CREATE_EXERCISE, {
     onError: err => console.error(err),
@@ -129,15 +154,37 @@ export default () => {
       const submitResult = await createExercise({
         variables: { name, description, difficulty, type, target },
       });
+      const result = submitResult.data.createExercise.name;
+      console.log(result);
 
-      console.log(submitResult);
+      if (result) setOnSuccess(true);
     } catch (err) {
       console.log(err);
     }
   };
 
-  return (
-    <div>
+  const successComponent = () => {
+    return (
+      <ReviewCard>
+        <h2>{name}</h2>
+        <ReviewCardItem>
+          <span>Description</span>
+          <p>{description}</p>
+        </ReviewCardItem>
+        <ReviewCardItem>
+          <span>Target</span>
+          <p>{target}</p>
+        </ReviewCardItem>
+        <ReviewCardItem>
+          <span>Type</span>
+          <p>{type}</p>
+        </ReviewCardItem>
+      </ReviewCard>
+    );
+  };
+
+  const formComponent = () => {
+    return (
       <FlexColumn>
         <PageTitle>Create Exercise</PageTitle>
         <Input label="Name" value={name} onChange={e => setName(e.target.value)} />
@@ -147,9 +194,6 @@ export default () => {
             value={description}
             onChange={e => setDesctiption(e.target.description)}
           ></textarea>
-          {/* <Dropdown title="Choose difficulty" items={difficulties}/> */}
-          {/* <Dropdown title="Choose type" items={types} /> */}
-          {/* <Dropdown title="Choose target" items={targets} /> */}
           <select onClick={e => setDifficulty(e.target.value)}>
             {difficulties.map(difficulty => (
               <option key={difficulty.id} value={difficulty.value}>
@@ -172,8 +216,10 @@ export default () => {
             ))}
           </select>
         </FormWrapper>
+        <Button text="Create" onClick={handleSubmit} />
       </FlexColumn>
-      <Button text="Create" onClick={handleSubmit} />
-    </div>
-  );
+    );
+  };
+
+  return <div>{onSuccess ? successComponent() : formComponent()}</div>;
 };

@@ -17,7 +17,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   border: none;
-  border-radius: 34px;
+  border-radius: 2px;
   min-height: 42px;
   padding: 0 14px;
   flex: 1;
@@ -30,7 +30,7 @@ const Input = styled.input`
   }
 `;
 
-export default (props) => {
+export default props => {
   return (
     <Field>
       <Label>{props.label}</Label>

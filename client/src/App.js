@@ -12,7 +12,13 @@ const GlobalStyle = createGlobalStyle`
   body, h1, h2, h3, h4, p {
     margin: 0;
     padding: 0;
-    font-family: 'Source Sans Pro', monospace;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  h2 {
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 20px;
   }
 `;
 

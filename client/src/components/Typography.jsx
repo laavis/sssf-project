@@ -11,5 +11,5 @@ const textStyles = `
 export const PageTitle = styled.h1`
   font-weight: 800;
   font-family: 'Open Sans', monospace;
-  margin-bottom: 140px;
+  margin-bottom: 100px;
 `;

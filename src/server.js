@@ -1,6 +1,7 @@
 import { ApolloServer, AuthenticationError } from 'apollo-server-express';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cookiesMiddleware from 'universal-cookie-express';
 import config from 'config';
 import { verify } from 'jsonwebtoken';
 import { User } from './models/User';
@@ -27,6 +28,7 @@ const startServer = async () => {
   app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
   app.use(cookieParser());
+  app.use(cookiesMiddleware());
 
   app.use(async (req, res, next) => {
     const refreshToken = req.cookies['refresh-token'];

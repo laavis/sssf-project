@@ -32,7 +32,7 @@ const App = props => {
       <Main>
         <Wrapper>
           <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Dashboard} />
           <Route path="/create-exercise" component={CreateExercise} />
           {/* <Route path="/sign-up" component={SignUp} /> */}
         </Wrapper>

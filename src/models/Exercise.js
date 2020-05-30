@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 export const ExerciseSchema = new mongoose.Schema({
   name: String,
+  description: String,
   type: {
     type: String,
     enum: ['push', 'pull'],
@@ -12,7 +13,7 @@ export const ExerciseSchema = new mongoose.Schema({
   },
   target: {
     type: String,
-    enum: ['chest', 'back', 'shoulders', 'biceps', 'legs', 'glutes', 'back', 'triceps', 'abs'],
+    enum: ['chest', 'back', 'shoulders', 'biceps', 'legs', 'glutes', 'triceps', 'abs'],
   },
 });
 

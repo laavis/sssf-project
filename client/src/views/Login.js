@@ -39,7 +39,7 @@ export default () => {
       const loginResult = await login({ variables: { email, password } });
       const success = loginResult.data.login.success;
       if (success) {
-        history.push('/dashboard');
+        history.push('/');
       }
     } catch (err) {
       console.log(err);

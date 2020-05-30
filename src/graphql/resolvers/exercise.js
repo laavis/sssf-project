@@ -3,7 +3,7 @@ import { AuthenticationError } from 'apollo-server-express';
 
 export const resolvers = {
   Query: {
-    getExercises: async (_) => {
+    getExercises: async _ => {
       return await Exercise.find();
     },
     getExercise: async (_, { id }) => {
@@ -25,8 +25,9 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createExercise: async (_, { name, type, difficulty, target }, { req }) => {
+    createExercise: async (_, { name, description, type, difficulty, target }, { req }) => {
       // @TODO: add validation
+      console.log(name, description);
 
       if (!req.userId) {
         return new AuthenticationError('haista vittu');
@@ -37,6 +38,7 @@ export const resolvers = {
       try {
         const newExercise = new Exercise({
           name,
+          description,
           type,
           difficulty,
           target,

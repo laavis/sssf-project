@@ -38,7 +38,6 @@ export default ({ title, items }) => {
   const toggle = () => setOpen(!open);
 
   const handleOnClick = item => {
-    console.log(item.name);
     console.log(item.value);
     setAsd(item.name);
 
@@ -71,7 +70,7 @@ export default ({ title, items }) => {
         {open && (
           <List>
             {items.map(item => (
-              <Item onClick={() => handleOnClick(item)} key={item.value}>
+              <Item onClick={() => handleOnClick(item)} key={item.value} value={item.value}>
                 {item.name}
               </Item>
             ))}

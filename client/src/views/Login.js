@@ -60,7 +60,7 @@ export default () => {
       />
 
       <FlexColumn>
-        <Button type="submit" text="Log In" onClick={handleLogin} />
+        <Button actionType="submit" text="Log In" onClick={handleLogin} />
         <Link to="/sign-up">Don't have an account? Sign Up</Link>
       </FlexColumn>
     </div>

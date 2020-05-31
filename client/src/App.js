@@ -7,8 +7,13 @@ import './App.css';
 import Login from './views/Login';
 import Dashboard from './views/Dashboard';
 import CreateExercise from './views/CreateExercise';
+import CreateWorkout from './views/CreateWorkout';
 
 const GlobalStyle = createGlobalStyle`
+
+  * {
+    color: #262626;
+  }
   body, h1, h2, h3, h4, p {
     margin: 0;
     padding: 0;
@@ -27,7 +32,7 @@ const Main = styled.main`
 `;
 
 const Wrapper = styled.div`
-  max-width: 411px;
+  max-width: 275px;
   margin: 0 auto;
 `;
 
@@ -40,14 +45,12 @@ const App = props => {
           <Route path="/login" component={Login} />
           <Route exact path="/" component={Dashboard} />
           <Route path="/create-exercise" component={CreateExercise} />
+          <Route path="/create-workout" component={CreateWorkout} />
           {/* <Route path="/sign-up" component={SignUp} /> */}
         </Wrapper>
       </Main>
     </BrowserRouter>
   );
 };
-
-// <Route exact path="/" component={CurrentTasks} />
-// <Route path="/completed" component={CompletedTasks} />
 
 export default App;

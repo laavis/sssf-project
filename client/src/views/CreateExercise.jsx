@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import { PageTitle } from '../components/Typography';
 import Button from '../components/Button';
 import { FlexColumn } from './Login';
 import Input from '../components/Input';
-import Dropdown from '../components/Dropdown';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import { difficulties, targets, types } from '../help/data';
 
-const FormWrapper = styled.div`
+export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -17,80 +17,6 @@ const FormWrapper = styled.div`
     margin-bottom: 20px;
   }
 `;
-
-const difficulties = [
-  {
-    id: 1,
-    name: 'Beginner',
-    value: 'beginner',
-  },
-  {
-    id: 2,
-    name: 'Intermediate',
-    value: 'intermediate',
-  },
-  {
-    id: 3,
-    name: 'Advanced',
-    value: 'advanced',
-  },
-];
-
-const types = [
-  {
-    id: 1,
-    name: 'Push',
-    value: 'push',
-  },
-  {
-    id: 2,
-    name: 'Pull',
-    value: 'pull',
-  },
-];
-
-const targets = [
-  {
-    id: 1,
-    name: 'Chest',
-    value: 'chest',
-  },
-  {
-    id: 2,
-    name: 'Back',
-    value: 'back',
-  },
-  {
-    id: 3,
-    name: 'Shoulders',
-    value: 'shoulders',
-  },
-  {
-    id: 4,
-    name: 'Biceps',
-    value: 'biceps',
-  },
-  {
-    id: 5,
-    name: 'Legs',
-    value: 'legs',
-  },
-  {
-    id: 6,
-    name: 'Glutes',
-    value: 'glutes',
-  },
-  {
-    id: 7,
-    name: 'Triceps',
-    value: 'triceps',
-  },
-  {
-    id: 8,
-    name: 'Abs',
-    value: 'abs',
-  },
-];
 
 const M_CREATE_EXERCISE = gql`
   mutation createExercise(
@@ -136,7 +62,30 @@ const ReviewCardItem = styled.div`
   }
 `;
 
+const TitleInput = styled.input`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 2px;
+  border-bottom: 6px solid #262626;
+  font-size: 24px;
+  font-weight: 800;
+  font-family: 'Open Sans', sans-serif;
+  
+    &:focus {
+    outline: none !important;
+    border-top: 2px solid #262626;
+    border-left: 2px solid #262626;
+    border-right: 2px solid #262626;    
+  }
+}
+
+  &::placeholder {
+    color: #c3c5db;
+  }
+`;
+
 export default () => {
+  const history = useHistory();
   const [name, setName] = useState('');
   const [description, setDesctiption] = useState('');
   const [difficulty, setDifficulty] = useState(null);
@@ -187,8 +136,9 @@ export default () => {
     return (
       <FlexColumn>
         <PageTitle>Create Exercise</PageTitle>
-        <Input label="Name" value={name} onChange={e => setName(e.target.value)} />
+        <TitleInput placeholder="Name" />
         <FormWrapper>
+          <Input label="Name" value={name} onChange={e => setName(e.target.value)} />
           <textarea
             placeholder="description"
             value={description}
@@ -217,6 +167,7 @@ export default () => {
           </select>
         </FormWrapper>
         <Button text="Create" onClick={handleSubmit} />
+        <Button secondary={true} text="Cancel" onClick={() => history.push('/')} />
       </FlexColumn>
     );
   };

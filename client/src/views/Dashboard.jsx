@@ -5,14 +5,12 @@ import { FlexColumn } from './Login';
 import { auth } from '../help/auth';
 
 export default ({ history }) => {
-  auth();
-
   return (
     <div>
       <FlexColumn>
         <PageTitle>Dashboard</PageTitle>
         <Button onClick={() => history.push('/create-exercise')} text="Create Exercise" />
-        <Button text="Create Workout" />
+        <Button onClick={() => history.push('/create-workout')} text="Create Workout" />
       </FlexColumn>
     </div>
   );

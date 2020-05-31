@@ -2,13 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  background: #a6abf0;
   border: 1px solid black;
-  width: fit-content;
   padding: 4px 12px;
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
+
+  background-color: ${props => (props.secondary ? 'transparent' : '#a6abf0')};
+  margin-top: 8px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 
   &:focus {
     outline: none;
@@ -19,9 +24,9 @@ const Button = styled.button`
   }
 `;
 
-export default (props) => {
+export default props => {
   return (
-    <Button type={props.type} onClick={props.onClick}>
+    <Button secondary={props.secondary} actionType={props.actionType} onClick={props.onClick}>
       {props.text}
     </Button>
   );

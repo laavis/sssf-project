@@ -9,13 +9,11 @@ export const resolvers = {
     getExercise: async (_, { id }) => {
       try {
         // add some check if exercise id is not correct?
-        // cuz if it happens the app will crash :D
+        // because if it happens the app will crash :D
         // edit: maybe not needed, server re-boots lol
         const exercise = await Exercise.findById(id);
-        console.log(exercise);
 
         if (!exercise) {
-          console.log('do iiit');
         }
 
         return exercise;
@@ -27,13 +25,10 @@ export const resolvers = {
   Mutation: {
     createExercise: async (_, { name, description, type, difficulty, target }, { req }) => {
       // @TODO: add validation
-      console.log(name, description);
 
       if (!req.userId) {
-        return new AuthenticationError('haista vittu');
+        return new AuthenticationError('Not authorized!');
       }
-
-      console.log(3);
 
       try {
         const newExercise = new Exercise({
@@ -44,11 +39,7 @@ export const resolvers = {
           target,
         });
 
-        console.log(newExercise);
-
         const exercise = await newExercise.save();
-
-        console.log(exercise);
 
         return exercise;
       } catch (err) {
@@ -57,7 +48,7 @@ export const resolvers = {
     },
     updateExercise: async (_, { id, name, type, difficulty, target }, { req }) => {
       if (!req.userId) {
-        return new AuthenticationError('haista vittu');
+        return new AuthenticationError('Not authorized!');
       }
       try {
         const exerciseToUpdate = { _id: id };
@@ -66,7 +57,6 @@ export const resolvers = {
           returnOriginal: false,
         });
 
-        console.log(updatedExercise);
         return updatedExercise;
       } catch (err) {
         console.error(err);
@@ -74,15 +64,13 @@ export const resolvers = {
     },
     deleteExercise: async (_, { id }, { req }) => {
       if (!req.userId) {
-        console.log(2);
-        return new AuthenticationError('haista vittu');
+        return new AuthenticationError('Not authorized!');
       }
 
       try {
         const exercise = await Exercise.findById(id);
         if (!exercise) return 'Exercise not found';
         await exercise.remove();
-
         return 'Exercise deleted';
       } catch (err) {
         console.error(err);

@@ -33,13 +33,12 @@ const Item = styled.li`
 export default ({ title, items }) => {
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState([]);
-  const [asd, setAsd] = useState(title);
+  const [itemName, setItemName] = useState(title);
 
   const toggle = () => setOpen(!open);
 
   const handleOnClick = item => {
-    console.log(item.value);
-    setAsd(item.name);
+    setItemName(item.name);
 
     if (!selection.some(current => current.id === item.id)) {
       setSelection([item]);
@@ -66,7 +65,7 @@ export default ({ title, items }) => {
         onKeyPress={() => toggle(!open)}
         onClick={() => toggle(!open)}
       >
-        <HeaderTitle>{asd}</HeaderTitle>
+        <HeaderTitle>{itemName}</HeaderTitle>
         {open && (
           <List>
             {items.map(item => (

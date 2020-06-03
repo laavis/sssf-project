@@ -4,11 +4,10 @@ import { Exercise } from '../../models/Exercise';
 
 export const resolvers = {
   Query: {
-    getWorkouts: async (_) => await Workout.find(),
+    getWorkouts: async _ => await Workout.find(),
     getWorkout: async (_, { id }) => {
       try {
         const workout = await Workout.findById(id);
-        console.log(workout);
 
         return workout;
       } catch (err) {
@@ -70,7 +69,6 @@ export const resolvers = {
     },
     deleteWorkout: async (_, { id }, { req }) => {
       if (!req.userId) {
-        console.log(2);
         return new AuthenticationError('Not authenticated.');
       }
       try {

@@ -33,15 +33,12 @@ const startServer = async () => {
   app.use(async (req, res, next) => {
     const refreshToken = req.cookies['refresh-token'];
     const accessToken = req.cookies['access-token'];
-    console.log(req.cookies);
 
     if (!refreshToken && !accessToken) {
       console.log('no tokens');
 
       return next();
     }
-
-    console.log('yes tokens');
 
     try {
       const data = verify(accessToken, accessSecret);
@@ -64,8 +61,6 @@ const startServer = async () => {
       return next();
     }
 
-    console.log(data);
-
     const user = await User.findOne({ _id: data.userId });
     // token has been invalidated
     if (!user || user.count !== data.count) {
@@ -73,9 +68,6 @@ const startServer = async () => {
 
       return next();
     }
-
-    console.log('USER: ');
-    console.log(user);
 
     const tokens = createTokens(user);
 

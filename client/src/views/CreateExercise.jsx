@@ -104,7 +104,6 @@ export default () => {
         variables: { name, description, difficulty, type, target },
       });
       const result = submitResult.data.createExercise.name;
-      console.log(result);
 
       if (result) setOnSuccess(true);
     } catch (err) {

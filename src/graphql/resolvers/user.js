@@ -8,19 +8,16 @@ export const resolvers = {
     register: async (_, { email, username, password, rePassword }, { res }) => {
       const errors = [];
 
-      /*const userInput = { email, username, password, rePassword };
+      const userInput = { email, username, password, rePassword };
       const validationErrors = validateRegister(userInput);
-      console.log(1);
 
       if (validationErrors.length > 0) {
-        validationErrors.map((err) => errors.push(err));
+        validationErrors.map(err => errors.push(err));
         console.log(validationErrors);
-
         return {
           errors,
         };
       }
-      */
 
       try {
         let user = await User.findOne({ email });
@@ -48,7 +45,6 @@ export const resolvers = {
 
         res.cookie('access-token', accessToken, { expiresIn: 60 * 15 });
         res.cookie('refresh-token', refreshToken, { expiresIn: 60 * 60 * 24 * 7 });
-        console.log(user);
 
         return user;
       } catch (err) {
@@ -56,17 +52,12 @@ export const resolvers = {
       }
     },
     login: async (_, { email, password }, { res }) => {
-      console.log('login');
-      console.log(email);
-      console.log(password);
-      console.log('credentials');
-
       const errors = [];
       const userInput = { email, password };
       const validationErrors = validateLogin(userInput);
 
       if (validationErrors.length > 0) {
-        validationErrors.map((err) => errors.push(err));
+        validationErrors.map(err => errors.push(err));
         return {
           errors,
         };

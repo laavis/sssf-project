@@ -4,7 +4,8 @@
   "description": "Personal workout app",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js "
+    "dev": "nodemon --exec babel-node src/server.js",
+    "start": "babel-node src/server.js"
   },
   "author": "Sara Suviranta",
   "license": "ISC",

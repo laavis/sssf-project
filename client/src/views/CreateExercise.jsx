@@ -70,14 +70,13 @@ const TitleInput = styled.input`
   font-size: 24px;
   font-weight: 800;
   font-family: 'Open Sans', sans-serif;
-  
-    &:focus {
+
+  &:focus {
     outline: none !important;
     border-top: 2px solid #262626;
     border-left: 2px solid #262626;
-    border-right: 2px solid #262626;    
+    border-right: 2px solid #262626;
   }
-}
 
   &::placeholder {
     color: #c3c5db;

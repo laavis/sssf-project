@@ -2,7 +2,6 @@ import React from 'react';
 import { PageTitle } from '../components/Typography';
 import Button from '../components/Button';
 import { FlexColumn } from './Login';
-import { auth } from '../help/auth';
 
 export default ({ history }) => {
   return (
